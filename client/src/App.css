@@ -1,0 +1,168 @@
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background-color: #fef9f1;
+  color: #2e2e2e;
+}
+
+header {
+  background-color: #1d3a34;
+  color: gold;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Garamond', serif;
+  border-bottom: 4px solid gold;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+button {
+  background-color: gold;
+  color: #1d3a34;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #d4af37;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 2rem auto;
+  gap: 0.5rem;
+}
+
+.formulario input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.vitrine {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.card {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  padding: 1rem;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.card h2 {
+  font-size: 1.1rem;
+  color: #1d3a34;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.detalhe-container {
+    background-color: #fef9f1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    font-family: 'Georgia', serif;
+    color: #2e2e2e;
+  }
+  
+  .detalhe-card {
+    background-color: white;
+    border: 2px solid gold;
+    border-radius: 12px;
+    display: flex;
+    max-width: 1000px;
+    width: 100%;
+    padding: 2rem;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    gap: 2rem;
+  }
+  
+  .detalhe-card img {
+    width: 250px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #d4af37;
+  }
+  
+  .detalhe-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .detalhe-info h2 {
+    font-size: 2rem;
+    color: #1d3a34;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #c9b560;
+    padding-bottom: 0.5rem;
+  }
+  
+  .detalhe-info p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #2e2e2e;
+  }
+  
+  .botoes-livro {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .botoes-livro button {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    font-weight: bold;
+    background-color: gold;
+    border: none;
+    color: #1d3a34;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .botoes-livro button:hover {
+    background-color: #d4af37;
+  }
+  
