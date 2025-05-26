@@ -1,29 +1,74 @@
 const express = require('express');
-const cors = require('cors');
 const axios = require('axios');
-const app = express();
-const PORT = 5000;
+const cors = require('cors');
 
-// 🔑 Substitua pela sua chave real da OMDb
-const OMDB_API_KEY = 'http://www.omdbapi.com/?apikey=[yourkey]&';
+const app = express();
+const port = 5000;
 
 app.use(cors());
 app.use(express.json());
 
-// 🎬 Rota para buscar filme na OMDb por título
-app.get('/filmes', async (req, res) => {
-  const query = req.query.q;
+const termosBusca = ['star', 'love', 'war', 'hero', 'space', 'life', 'night', 'day', 'dream', 'dark'];
 
-  if (!query) {
-    return res.status(400).json({ error: 'Parâmetro "q" (título do filme) é obrigatório.' });
+const OMDB_API_KEY = '560adedd';
+
+app.get('/filmes', async (req, res) => {
+  try {
+    const filmes = new Map();
+
+    while (filmes.size < 16) {
+      const termo = termosBusca[Math.floor(Math.random() * termosBusca.length)];
+
+      const response = await axios.get('http://www.omdbapi.com/', {
+        params: {
+          apikey: OMDB_API_KEY,
+          s: termo,
+          type: 'movie',
+        },
+      });
+
+      if (response.data.Response === 'True') {
+        const lista = response.data.Search;
+
+        for (const filme of lista) {
+          if (!filmes.has(filme.imdbID)) {
+            const detalhes = await axios.get('http://www.omdbapi.com/', {
+              params: {
+                apikey: OMDB_API_KEY,
+                i: filme.imdbID,
+                plot: 'short',
+              },
+            });
+
+            filmes.set(filme.imdbID, detalhes.data);
+
+            if (filmes.size === 18) break;
+          }
+        }
+      }
+    }
+
+    res.json(Array.from(filmes.values()));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao consultar a OMDb API.' });
   }
+});
+
+app.get('/', (req, res) => {
+  res.send('API de filmes está online!');
+});
+
+app.get('/filmes/:id', async (req, res) => {
+  const { id } = req.params;
 
   try {
-    const response = await axios.get('https://www.omdbapi.com/', {
+    const response = await axios.get('http://www.omdbapi.com/', {
       params: {
         apikey: OMDB_API_KEY,
-        t: query
-      }
+        i: id,
+        plot: 'full',
+      },
     });
 
     if (response.data.Response === 'False') {
@@ -32,12 +77,12 @@ app.get('/filmes', async (req, res) => {
 
     res.json(response.data);
   } catch (error) {
-    console.error('Erro ao consultar OMDb:', error.message);
-    res.status(500).json({ error: 'Erro ao buscar dados da OMDb.' });
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao buscar detalhes do filme.' });
   }
 });
 
-// 🚀 Inicia o servidor
-app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+
+app.listen(port, () => {
+  console.log(`Servidor rodando em http://localhost:${port}`);
 });
